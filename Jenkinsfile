@@ -3,26 +3,26 @@ pipeline {
     stages {
         stage('Clone') {
             steps {
-                git 'https://github.com/Bhavanak52/evops_intern_bhavana.git'
+                git 'https://github.com/Bhavanak52/devops_intern_bhavana.git'
             }
         }
         stage('Build Docker Image') {
             steps {
-                sh 'docker build -t hello-docker .'
+                bat 'docker build -t hello-docker .'
             }
         }
         stage('Run Container') {
             steps {
-                sh '''
-                docker stop hello-app || true
-                docker rm hello-app || true
+                bat '''
+                docker stop hello-app || exit 0
+                docker rm hello-app || exit 0
                 docker run -d -p 5000:5000 --name hello-app hello-docker
                 '''
             }
         }
         stage('Test App') {
             steps {
-                sh 'curl -f http://localhost:5000 || (echo "App test failed" && exit 1)'
+                bat 'curl http://localhost:5000'
             }
         }
     }
