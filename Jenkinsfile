@@ -2,10 +2,13 @@ pipeline {
     agent any
     stages {
         stage('Clone') {
-            steps {
-                git 'https://github.com/Bhavanak52/devops_intern_bhavana.git'
-            }
-        }
+    steps {
+        git branch: 'master',
+            url: 'https://github.com/Bhavanak52/evops_intern_bhavana.git',
+            credentialsId: 'github-credentials'
+    }
+}
+
         stage('Build Docker Image') {
             steps {
                 bat 'docker build -t hello-docker .'
